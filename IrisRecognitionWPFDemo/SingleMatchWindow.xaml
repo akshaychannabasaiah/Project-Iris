@@ -1,0 +1,160 @@
+﻿<controls:MetroWindow x:Class="IrisRecognitionWPFDemo.SingleMatchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:emgu="clr-namespace:Emgu.CV.UI;assembly=Emgu.CV.UI"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+Title="Match an Iris" Height="600" Width="800" Icon="Eye-icon-1106042358.png">
+    <controls:MetroWindow.Background>
+        <ImageBrush ImageSource="white-background-129-hd-wallpapers.jpg"/>
+    </controls:MetroWindow.Background>
+    <Grid>
+        <Border BorderBrush="Black" BorderThickness="1">
+            <Grid x:Name="gridSingleMatch" Margin="9,-1,11,21">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120*"/>
+                    <ColumnDefinition Width="251*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="155*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="buttonSingleMatchHome" HorizontalAlignment="Left" Width="50" Height="50" VerticalAlignment="Top" Style="{DynamicResource MetroCircleButtonStyle}" Click="buttonSingleMatchHome_Click_1">
+                    <Image Height="48" Source="1401933485_81161.ico" Stretch="Fill" Width="48"/>
+                </Button>
+                <Label Content="Match" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontSize="26" FontWeight="Bold" Margin="236,0" Width="298" HorizontalContentAlignment="Center" FontFamily="Amarnath">
+                    <Label.Foreground>
+                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.MenuHighlightColorKey}}"/>
+                    </Label.Foreground>
+                </Label>
+                <Button x:Name="buttonSingleMatchRestart" HorizontalAlignment="Right" Width="50" Height="50" Grid.Column="2" VerticalAlignment="Top" Style="{DynamicResource MetroCircleButtonStyle}" Click="buttonSingleMatchRestart_Click">
+                    <Image Height="48" Source="1401933568_81144.ico" Stretch="Fill" Width="48"/>
+                </Button>
+                <Grid x:Name="gridMainLeft" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="55*"/>
+                        <RowDefinition Height="55*"/>
+                        <RowDefinition Height="55*"/>
+                        <RowDefinition Height="55*"/>
+                        <RowDefinition Height="55*"/>
+                        <RowDefinition Height="55*"/>
+                        <RowDefinition Height="55*"/>
+                        <RowDefinition Height="55*"/>
+                        <RowDefinition Height="55*"/>
+                        <RowDefinition Height="55*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="buttonSingleMatchChooseImage" Grid.Row="0" ToolTip="Choose an image to SingleMatch into the database." ClipToBounds="True" Cursor="Hand" HorizontalContentAlignment="Stretch" Background="#FF8BFF69" Click="buttonSingleMatchChooseImage_Click">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Image Source="1400509804_173007.ico"/>
+                            <Label Content="Choose Image" FontSize="20" VerticalContentAlignment="Center" TextOptions.TextFormattingMode="Display" FontWeight="Bold" FontFamily="Delicious"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="buttonSingleMatchInputImage" Grid.Row="1" ToolTip="The input image as it is." ClipToBounds="True" Cursor="Hand" HorizontalContentAlignment="Stretch" IsEnabled="False" Click="buttonSingleMatchInputImage_Click" >
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Image Source="1400509804_173007.ico"/>
+                            <Label Content="Input Image" FontSize="20" VerticalContentAlignment="Center" TextOptions.TextFormattingMode="Display" FontWeight="Bold" FontFamily="Delicious"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="buttonSingleMatchPupilDetected" Grid.Row="2" ToolTip="The detected pupil from the input image." ClipToBounds="True" Cursor="Hand" HorizontalContentAlignment="Stretch" IsEnabled="False" Click="buttonSingleMatchPupilDetected_Click">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Image Source="1400509804_173007.ico"/>
+                            <Label Content="Detected Pupil" FontSize="20" VerticalContentAlignment="Center" TextOptions.TextFormattingMode="Display" FontWeight="Bold" FontFamily="Delicious"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="buttonSingleMatchOuterBoundary" Grid.Row="3" ToolTip="The outer boundary of the Iris." ClipToBounds="True" Cursor="Hand" HorizontalContentAlignment="Stretch" IsEnabled="False" Click="buttonSingleMatchOuterBoundary_Click" >
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Image Source="1400509804_173007.ico"/>
+                            <Label Content="Iris Outer Boundary" FontSize="20" VerticalContentAlignment="Center" TextOptions.TextFormattingMode="Display" FontWeight="Bold" FontFamily="Delicious"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="buttonSingleMatchSegmentedIris" Grid.Row="4" ToolTip="The input image after segmentation. Segmentation extracts the Iris from the input image." ClipToBounds="True" Cursor="Hand" HorizontalContentAlignment="Stretch" IsEnabled="False" Click="buttonSingleMatchSegmentedIris_Click" >
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Image Source="1400509804_173007.ico"/>
+                            <Label Content="Segmented Iris" FontSize="20" VerticalContentAlignment="Center" TextOptions.TextFormattingMode="Display" FontWeight="Bold" FontFamily="Delicious"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="buttonSingleMatchNormalized" Grid.Row="5" ToolTip="The Iris after Normalization." ClipToBounds="True" Cursor="Hand" HorizontalContentAlignment="Stretch" IsEnabled="False" Click="buttonSingleMatchNormalized_Click" >
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Image Source="1400509804_173007.ico"/>
+                            <Label Content="Normalized Iris" FontSize="20" VerticalContentAlignment="Center" TextOptions.TextFormattingMode="Display" FontWeight="Bold" FontFamily="Delicious"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="buttonSingleMatchExtractFeatures" Grid.Row="6" ToolTip="The features extracted from the Iris." ClipToBounds="True" Cursor="Hand" HorizontalContentAlignment="Stretch" IsEnabled="False" Click="buttonSingleMatchExtractFeatures_Click" >
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Image Source="1400509804_173007.ico"/>
+                            <Label Content="Extracted Features" FontSize="20" VerticalContentAlignment="Center" TextOptions.TextFormattingMode="Display" FontWeight="Bold" FontFamily="Delicious"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="buttonSingleMatchIrisCode" Grid.Row="7" ToolTip="The binary code of the Iris." ClipToBounds="True" Cursor="Hand" HorizontalContentAlignment="Stretch" IsEnabled="False" Click="buttonSingleMatchIrisCode_Click" >
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Image Source="1400509804_173007.ico"/>
+                            <Label Content="Iris Code" FontSize="20" VerticalContentAlignment="Center" TextOptions.TextFormattingMode="Display" FontWeight="Bold" FontFamily="Delicious"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="buttonSingleMatchHammingResult" Grid.Row="8" ToolTip="View individual filter Hamming Distance match result." ClipToBounds="True" Cursor="Hand" HorizontalContentAlignment="Stretch" IsEnabled="False" Click="buttonSingleMatchHammingResult_Click" >
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Image Source="1400509804_173007.ico"/>
+                            <Label Content="Hamming Result" FontSize="20" VerticalContentAlignment="Center" TextOptions.TextFormattingMode="Display" FontWeight="Bold" FontFamily="Delicious"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="buttonSingleMatchViewAll" Grid.Row="9" ToolTip="View all the transformations taken place on the Inout Image." ClipToBounds="True" Cursor="Hand" HorizontalContentAlignment="Stretch" IsEnabled="False" Click="buttonSingleMatchViewAll_Click" >
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Image Source="1400509804_173007.ico"/>
+                            <Label Content="View All" FontSize="20" VerticalContentAlignment="Center" TextOptions.TextFormattingMode="Display" FontWeight="Bold" FontFamily="Delicious"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+                <TextBlock x:Name="labelSingleMatchInitialDisplayMessage" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" Margin="10,0,10,0" Visibility="Visible"
+                	HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Delicious" FontSize="48" TextOptions.TextFormattingMode="Display" ><Run Language="en-in" Text="Please select image to match."/></TextBlock>
+                <TextBlock x:Name="labelSingleMatchDisplayMessage" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" Margin="101,22,78,418" Visibility="Collapsed"
+                	HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Delicious" FontSize="20" TextOptions.TextFormattingMode="Display" Width="342" Height="45" ><Run Language="en-in" Text="Image Matched with:"/></TextBlock>
+                <WindowsFormsHost x:Name="WindowsHost" Grid.Column="1" Grid.Row="1" Margin="10,0,10,0" Visibility="Collapsed" Height="240" Width="320" >
+                    <emgu:ImageBox x:Name="imageBox" Height="240" Width="320" ></emgu:ImageBox>
+                </WindowsFormsHost>
+                <Button x:Name="buttonConfirm" Content="MATCH"  Grid.Column="1" Grid.Row="1" Height="30" Margin="368,389,63,66" Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
+                        Visibility="Collapsed" Click="buttonConfirm_Click" Cursor="Hand"/>
+                <Grid x:Name="gridGaborFilters" Visibility="Collapsed" Grid.Column="1" Margin="20,85,0,86" Grid.Row="1">
+                    <TextBlock TextWrapping="Wrap"  Visibility="Visible"
+                		HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Delicious" FontSize="20" TextOptions.TextFormattingMode="Display" Margin="182,0,180,292" Width="118" ><Run Language="en-in" Text="Gabor Filters:"/></TextBlock>
+                    <TextBlock TextWrapping="Wrap"  Visibility="Visible"
+                		HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Delicious" FontSize="20" TextOptions.TextFormattingMode="Display" Margin="20,36,451,256" ><Run Language="en-in" Text="1"/></TextBlock>
+                    <TextBlock TextWrapping="Wrap"  Visibility="Visible"
+                		HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Delicious" FontSize="20" TextOptions.TextFormattingMode="Display" Margin="106,36,365,256" ><Run Language="en-in" Text="2"/></TextBlock>
+                    <TextBlock TextWrapping="Wrap"  Visibility="Visible"
+                		HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Delicious" FontSize="20" TextOptions.TextFormattingMode="Display" Margin="191,36,280,256" ><Run Language="en-in" Text="3"/></TextBlock>
+                    <TextBlock TextWrapping="Wrap"  Visibility="Visible"
+                		HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Delicious" FontSize="20" TextOptions.TextFormattingMode="Display" Margin="280,36,191,256" ><Run Language="en-in" Text="4"/></TextBlock>
+                    <TextBlock TextWrapping="Wrap"  Visibility="Visible"
+                		HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Delicious" FontSize="20" TextOptions.TextFormattingMode="Display" Margin="366,36,105,256" ><Run Language="en-in" Text="5"/></TextBlock>
+                    <TextBlock TextWrapping="Wrap"  Visibility="Visible"
+                		HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Delicious" FontSize="20" TextOptions.TextFormattingMode="Display" Margin="452,36,19,256" ><Run Language="en-in" Text="6"/></TextBlock>
+
+                    <WindowsFormsHost x:Name="WindowsHostGB1" Height="240" Width="60" Margin="0,74,430,0" Visibility="Visible" >
+                        <emgu:ImageBox x:Name="imageBoxGB1"  />
+                    </WindowsFormsHost>
+                    <WindowsFormsHost x:Name="WindowsHostGB2" Height="240" Width="60" Margin="86,74,344,0" Visibility="Visible" >
+                        <emgu:ImageBox x:Name="imageBoxGB2" />
+                    </WindowsFormsHost>
+                    <WindowsFormsHost x:Name="WindowsHostGB3" Height="240" Width="60" Margin="172,74,258,0" Visibility="Visible" >
+                        <emgu:ImageBox x:Name="imageBoxGB3" />
+                    </WindowsFormsHost>
+                    <WindowsFormsHost x:Name="WindowsHostGB4" Height="240" Width="60" Margin="262,74,168,0" Visibility="Visible"  >
+                        <emgu:ImageBox x:Name="imageBoxGB4" />
+                    </WindowsFormsHost>
+                    <WindowsFormsHost x:Name="WindowsHostGB5" Height="240" Width="60" Margin="346,74,84,0" Visibility="Visible" >
+                        <emgu:ImageBox x:Name="imageBoxGB5" />
+                    </WindowsFormsHost>
+                    <WindowsFormsHost x:Name="WindowsHostGB6" Height="240" Width="60" Margin="430,74,0,0" Visibility="Visible"  >
+                        <emgu:ImageBox x:Name="imageBoxGB6" />
+                    </WindowsFormsHost>                    
+                </Grid>
+                <Grid x:Name="gridHamming" Margin="30,537,10,0" Grid.Column="1" Grid.Row="1" Visibility="Collapsed">
+                    <TextBlock x:Name="labelHammingAvg" TextWrapping="Wrap"  Visibility="Visible"
+                    	HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Delicious" TextOptions.TextFormattingMode="Display" Margin="2,-118,12,80" Width="467" FontSize="18" Height="38" ><Run Language="en-in" Text="4"/></TextBlock>
+                </Grid>
+            </Grid>
+        </Border>
+        <Grid x:Name="gridPopUp" Visibility="Collapsed">
+            <controls:ProgressRing x:Name="progressRing"  IsActive="True" Margin="101,101,85,113" Height="271" Width="335" />
+        </Grid>
+    </Grid>
+</controls:MetroWindow>
