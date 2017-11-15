@@ -1,5 +1,5 @@
 # Project-Iris
-Algorithmic model for efficient representation and accurate recognition of Iris
+Algorithmic model for representation and recognition of human Iris 
 
 Perform Segmentation using Contour Deection along with Hough transform. The segmented Iris isnormalized using Daugman’s
 rubber-sheet model and then apply Gabor filters to obtain the Iris code.
